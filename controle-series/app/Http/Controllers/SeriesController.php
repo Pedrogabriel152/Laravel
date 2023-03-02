@@ -8,22 +8,29 @@ use App\Models\Serie;
 
 class SeriesController extends Controller
 {
-    public function index(Request $req) {
+    public function index(Request $request) {
         $series = Serie::query()->orderBy('nome')->get();
+        $messagemDeSucesso = $request->session('mensagem.sucesso');
 
-        return view('series.index', compact('series'));
+        return view('series.index')->with('series', $series)
+                                    ->with('messagemSucesso', $messagemDeSucesso);
     }
 
-    public function create(Request $req) {
+    public function create(Request $request) {
         return view('series.create');
     }
 
     public function store(Request $request) {
-        $nomeSerie = $request->name;
+        $serie = Serie::create($request->all());
 
-        $serie = new Serie();
-        $serie->nome = $nomeSerie;
-        $serie->save();
+        $request->session()->flash('mensagem.sucesso', "Serie '{$serie->nome}' adicionada com sucesso");
+
+        return to_route('series.index');
+    }
+
+    public function destroy(Serie $series, Request $request) {
+        $series->delete();
+        $request->session()->flash('mensagem.sucesso', "Serie '{$series->nome}' removida com sucesso");
 
         return to_route('series.index');
 
