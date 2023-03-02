@@ -18,14 +18,14 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function save(Request $request) {
-        $nomeSerie = $request->input('name');
+    public function store(Request $request) {
+        $nomeSerie = $request->name;
 
         $serie = new Serie();
         $serie->nome = $nomeSerie;
         $serie->save();
 
-        return redirect('/series');
+        return to_route('series.index');
 
     }
 }

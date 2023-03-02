@@ -15,11 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/series');
 });
 
-Route::prefix('series')->group(function () {
-    Route::get('/', [SeriesController::class,'index']);
-    Route::get('/criar', [SeriesController::class,'create']);
-    Route::post('/salvar', [SeriesController::class,'save']);
-});
+Route::resource('series', SeriesController::class);
