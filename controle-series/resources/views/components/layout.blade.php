@@ -7,6 +7,7 @@
         <title>Series</title>
 
         <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     </head>
     <body>
         <div class="container">
