@@ -1,8 +1,5 @@
 * text=auto eol=lf
 
-* linguist-vendored
-*.javaScript linguist-vendored=false
-*.php linguist-vendored=true
 *.blade.php diff=html
 *.css diff=css
 *.html diff=html
