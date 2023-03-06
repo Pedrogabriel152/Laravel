@@ -18,18 +18,20 @@ use App\Http\Middleware\Atenticador;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/series');
-});
-
 Route::resource('series', SeriesController::class)
-        ->middleware(Atenticador::class)
         ->except(['show']);
 
-Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index');
+Route::middleware('autenticador')->group(function () {
+    Route::get('/', function () {
+        return redirect('/series');
+    });
+    Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index');
 
-Route::get('/season/{season}/episodes', [EpisodesController::class, 'index'])->name('episodes.index');
-Route::post('/season/{season}/episodes', [EpisodesController::class, 'update'])->name('episodes.update');
+    Route::get('/season/{season}/episodes', [EpisodesController::class, 'index'])->name('episodes.index');
+    Route::post('/season/{season}/episodes', [EpisodesController::class, 'update'])->name('episodes.update');
+});
+
+        
 
 Route::prefix('/')->group(function () {
     Route::get('/login', [UserController::class, 'index'])->name('login');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Series;
+use App\Http\Middleware\Atenticador;
 
 class SeasonsController extends Controller
 {

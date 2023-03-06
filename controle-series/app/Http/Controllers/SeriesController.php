@@ -9,10 +9,14 @@ use App\Models\Season;
 use App\Models\Episode;
 use App\Http\Requests\SeriesFormRequest;
 use App\Repositories\SeriesRepository;
+use App\Http\Middleware\Atenticador;
 
 class SeriesController extends Controller
 {
-    
+    public function __construct() {
+        $this->middleware(Atenticador::class)->except('index');
+    }
+
     public function index(Request $request) {
         $series = Series::query()->orderBy('nome')->get();
         $messagemDeSucesso = $request->session()->get('mensagem.sucesso');
