@@ -26,14 +26,14 @@ class SeriesCreated extends Mailable
     {
         //
     }
-
+         
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Series Created',
+            subject: "Série $this->nomeSerie criada ",
         );
     }
 
