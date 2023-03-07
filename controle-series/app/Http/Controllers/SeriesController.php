@@ -36,19 +36,24 @@ class SeriesController extends Controller
        
         $serie = $repository->add($request);
 
-        $email = new SeriesCreated(
-            $serie->nome,
-            $serie->id,
-            $request->seasonsQty,
-            $request->espisodesQty
-        );
-
         // Mail::to($request->user())->send($email);
         $moreUsers = User::all();
-        Mail::to($request->user())
-            ->cc($moreUsers)
-            ->bcc($evenMoreUsers)
-            ->send(new MailableClass);
+
+        foreach($moreUsers as $index => $user){
+
+            $email = new SeriesCreated(
+                $serie->nome,
+                $serie->id,
+                $request->seasonsQty,
+                $request->espisodesQty
+            );
+            
+            $when = now()->addSeconds($index * 5);
+
+            Mail::to($user)
+            ->later($when ,$email);
+        }
+        
 
         return to_route('series.index')
                     ->with('mensagem.sucesso', "Serie '{$serie->nome}' adicionada com sucesso");
