@@ -6,6 +6,7 @@ use App\Http\Controllers\EpisodesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Atenticador;
+use App\Mail\SeriesCreated;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,13 @@ Route::prefix('/')->group(function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/register', [UserController::class, 'create'])->name('user.create');
     Route::post('/register', [UserController::class, 'register'])->name('user.register');
+});
+
+Route::get('/email', function () {
+    return new SeriesCreated(
+        'Serie teste',
+        2,
+        6,
+        90
+    );
 });
