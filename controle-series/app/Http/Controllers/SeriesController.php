@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Season;
 use App\Models\Series;
-use App\Models\Episode;
-use App\Mail\SeriesCreated;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Service\SeriesService;
 use App\Http\Middleware\Atenticador;
 use App\Repositories\SeriesRepository;
@@ -34,6 +29,9 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request, SeriesRepository $repository) {
        
+        $coverPath = $request->file('cover')->store('series_cover', 'public');
+        $request->coverPath = $coverPath;
+
         SeriesService::store($request,$repository);
 
         return to_route('series.index')

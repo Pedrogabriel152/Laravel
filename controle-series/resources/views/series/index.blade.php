@@ -11,7 +11,10 @@
         @foreach ($series as $serie)
 
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                @auth   <a href="{{route('seasons.index', $serie->id)}}"> @endauth {{ $serie->nome }} @auth</a>@endauth
+                <div class="d-flex align-items-center">
+                    <img src="{{asset('storage/'. $serie->cover)}}" class="img-thumbnail me-3" alt="" width="100">
+                    @auth   <a href="{{route('seasons.index', $serie->id)}}"> @endauth {{ $serie->nome }} @auth</a>@endauth
+                </div>
                 @auth
                 <div class="d-flex justify-content-between">
                     <a class="btn btn-primary btn-sm m-1" href="{{ route('series.edit', $serie->id)}}"><i class="bi bi-pencil-square"></i></a>

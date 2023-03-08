@@ -1,5 +1,14 @@
 <x-layout title="Temporadas de {!! $series->nome !!}">
-    <a href="{{ route('series.index') }}" class="btn btn-dark mb-2">Voltar</a>
+   <div class="row">
+    <div class="col">
+        <a href="{{ route('series.index') }}" class="btn btn-dark mb-2">Voltar</a>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col text-center">
+        <img src="{{ asset('storage/'. $series->cover) }}" alt="Capa da série" class="img-fluid mt-3" style="height: 400px">
+    </div>
+   </div>
     <ul class="list-group">
         @foreach ($seasons as $season)
 
