@@ -29,7 +29,10 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request, SeriesRepository $repository) {
        
-        $coverPath = $request->file('cover')->store('series_cover', 'public');
+        $coverPath = $request->hasFile('cover')
+            ? $request->file('cover')->store('series_cover', 'public')
+            : null;
+
         $request->coverPath = $coverPath;
 
         SeriesService::store($request,$repository);
