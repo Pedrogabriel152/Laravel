@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Season;
+use App\Models\Series;
+use App\Models\Episode;
+use App\Mail\SeriesCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Series;
-use App\Models\Season;
-use App\Models\Episode;
-use App\Models\User;
-use App\Http\Requests\SeriesFormRequest;
-use App\Repositories\SeriesRepository;
+use App\Http\Service\SeriesService;
 use App\Http\Middleware\Atenticador;
-use App\Mail\SeriesCreated;
-use App\Events\SeriesCreated as SeriesCreatedEvent;
+use App\Repositories\SeriesRepository;
+use App\Http\Requests\SeriesFormRequest;
 
 class SeriesController extends Controller
 {
@@ -34,17 +34,10 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request, SeriesRepository $repository) {
        
-        // $serie = $repository->add($request);
-        
-        SeriesCreatedEvent::dispatch(
-            $serie->nome,
-            $serie->id,
-            $request->seasonsQty,
-            $request->espisodesQty
-        );
+        SeriesService::store($request,$repository);
 
         return to_route('series.index')
-                    ->with('mensagem.sucesso', "Serie '{$serie->nome}' adicionada com sucesso");
+                    ->with('mensagem.sucesso', "Serie '{$request->nome}' adicionada com sucesso");
     }
 
     public function destroy(Series $series, Request $request) {
