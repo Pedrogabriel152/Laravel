@@ -10,15 +10,15 @@ use App\Http\Requests\SeriesFormRequest;
 
 class SeriesRepository
 {
-    public function add(SeriesFormRequest $request): Series {
-        return DB::transaction(function () use ($request) {
+    public function add(object $data): Series {
+        return DB::transaction(function () use ($data) {
             $serie = Series::create([
-                'nome' => $request->nome,
-                'cover' => $request->coverPath
+                'nome' => $data->nome,
+                'cover' => $data->coverPath
             ]);
 
             $seasons = [];
-            for($i = 1; $i <= intval($request->seasonsQty); $i++) {
+            for($i = 1; $i <= intval($data->seasonsQty); $i++) {
                 $seasons[] = [
                     'series_id' => $serie->id,
                     'number' => $i,
@@ -28,7 +28,7 @@ class SeriesRepository
             Season::insert($seasons);
             $episodes = [];
             foreach ($serie->seasons as $season) {
-                for ($j=1; $j <= $request->espisodesQty; $j++) { 
+                for ($j=1; $j <= $data->espisodesQty; $j++) { 
                     $episodes[] = [
                         'season_id' => $season->id,
                         'number' => $j
