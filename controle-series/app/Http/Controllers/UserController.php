@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class UserController extends Controller
 {
@@ -31,7 +32,11 @@ class UserController extends Controller
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         Auth::login($user);
-
+        $token = JWT::encode([
+            'user' => $user->nome,
+            'email' => $user->email
+        ],'minha_chave', 'HS256');
+        
         return to_route('series.index');
     }
 
