@@ -6,12 +6,15 @@ use App\Models\Season;
 use App\Models\Episode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Series extends Model
 {
     use HasFactory;
     protected $fillable = ['nome', 'cover'];
+
+    protected $appends = ['links'];
 
     public function seasons(){
         return $this->hasMany(Season::class, 'series_id');
@@ -28,5 +31,25 @@ class Series extends Model
             $queryBuilder->orderBy('nome');
         });
 
+    }
+
+    public function links(): Attribute
+    {
+        return new Attribute(
+            get: fn () => [
+                [
+                    'rel' => 'self',
+                    'url' => "/api/series/{$this->id}"
+                ],
+                [
+                    'rel' => 'seasons',
+                    'url' => "/api/series/{$this->id}/seasons"
+                ],
+                [
+                    'rel' => 'episodes',
+                    'url' => "/api/series/{$this->id}/episodes"
+                ],
+            ],
+        );
     }
 }
