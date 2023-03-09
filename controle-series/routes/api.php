@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Series;
+use App\Models\Episode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SeriesControllerApi;
@@ -22,3 +23,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('/series', SeriesControllerApi::class);
 
+Route::get('/series/{series}/seasons', function (Series $series) {
+    return $series->seasons;
+});
+
+Route::get('/series/{series}/episodes', function (Series $series) {
+    return $series->episodes;
+});
+
+Route::patch('/episodes/{episode}', function(Episode $episode, Request $request) {
+    $episode->whatched = $request->whatched;
+
+    $episode->save();
+    return $episode;
+});
