@@ -2,10 +2,11 @@
 
 namespace Leilao\Test\Models;
 
-use PHPUnit\Framework\TestCase;
+use DomainException;
 use Leilao\Model\Lance;
 use Leilao\Model\Leilao;
 use Leilao\Model\Usuario;
+use PHPUnit\Framework\TestCase;
 
 class LeilaoTest extends TestCase
 {
@@ -46,7 +47,7 @@ class LeilaoTest extends TestCase
     /**
      * @dataProvider geraLances
      */
-    public function testLeilaoDeveReceberLances(
+    public static function testLeilaoDeveReceberLances(
         int $qtdLances,
         Leilao $leilao,
         array $valores
@@ -58,7 +59,7 @@ class LeilaoTest extends TestCase
         }
     }
 
-    public function geraLances()
+    public static function geraLances()
     {
         $joao = new Usuario('João');
         $maria = new Usuario('Maria');

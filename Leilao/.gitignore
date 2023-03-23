@@ -1,4 +1,4 @@
-vendor/
 .idea/
+vendor/
 .phpunit.result.cache
-testes-executados.txt
+testdox.txt
