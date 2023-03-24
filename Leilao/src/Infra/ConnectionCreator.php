@@ -8,9 +8,13 @@ class ConnectionCreator
 
     public static function getConnection(): \PDO
     {
+        $data = Variaveis::variaveis();
+        $host = $data['host'];
+        $dbname = $data['dbname'];
+        $password = $data['password'];
+
         if (is_null(self::$pdo)) {
-            $caminhoBanco = __DIR__ . '/../../banco.sqlite';
-            self::$pdo = new \PDO('sqlite:' . $caminhoBanco);
+            self::$pdo = new \PDO("mysql:host=$host;dbname=$dbname", 'root', $password);
             self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }
 
