@@ -2,7 +2,7 @@
     "autoload": {
         "psr-4": {
             "Leilao\\": "src/",
-            "Leilao\\Test\\": "test/"
+            "Leilao\\Tests\\": "test/"
         }
     },
     "require-dev": {

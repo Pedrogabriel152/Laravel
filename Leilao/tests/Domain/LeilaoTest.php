@@ -1,11 +1,11 @@
 <?php
 
-namespace Leilao\Tests\Domain;
+namespace Leilao\Tests\Unit\Domain;
 
-use DomainException;
 use Leilao\Model\Lance;
 use Leilao\Model\Leilao;
 use Leilao\Model\Usuario;
+use DomainException;
 use PHPUnit\Framework\TestCase;
 
 class LeilaoTest extends TestCase
@@ -48,7 +48,7 @@ class LeilaoTest extends TestCase
         $leilao->recebeLance(new Lance($usuario, 1100));
     }
 
-    public function dadosParaProporLances()
+    public static function dadosParaProporLances()
     {
         $usuario1 = new Usuario('Usuário 1');
         $usuario2 = new Usuario('Usuário 2');

@@ -1,10 +1,11 @@
 <?php
 
-namespace Leilao\Test\Service;
+namespace Leilao\Tests\Unit\Service;
 
+use Leilao\Dao\Leilao as LeilaoDao;
 use Leilao\Model\Leilao;
 use Leilao\Service\Encerrador;
-use Leilao\Dao\Leilao as LeilaoDao;
+use Leilao\Service\EnviadorEmail;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -28,10 +29,10 @@ class EncerradorTest extends TestCase
         );
         $leilaoDao = $this->createMock(LeilaoDao::class);
         $leilaoDao->method('recuperarNaoFinalizados')
-            ->willReturn([$this->leilaoFiat147, $this->leilaoVariante]);
+            ->willReturnOnConsecutiveCalls([$this->leilaoFiat147, $this->leilaoVariante]);
         $leilaoDao->expects($this->exactly(2))
             ->method('atualiza')
-            ->withConsecutive(
+            ->willReturnOnConsecutiveCalls(
                 [$this->leilaoFiat147],
                 [$this->leilaoVariante]
             );
