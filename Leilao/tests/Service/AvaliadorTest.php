@@ -25,7 +25,7 @@ class AvaliadorTest extends TestCase
       */
      public function testAvaliadorDeveAcharMaiorValor(Leilao $leilao)
      {
-        $this->avaliador->avalia($leilao);
+         $this->avaliador->avalia($leilao);
  
          static::assertEquals(2000, $this->avaliador->getMaiorValor());
      }
@@ -37,7 +37,7 @@ class AvaliadorTest extends TestCase
       */
      public function testAvaliadorDeveAcharMenorValor(Leilao $leilao)
      {
-        $this->avaliador->avalia($leilao);
+         $this->avaliador->avalia($leilao);
  
          static::assertEquals(1000, $this->avaliador->getMenorValor());
      }
@@ -49,7 +49,7 @@ class AvaliadorTest extends TestCase
       */
      public function testAvaliadorDeveOrdenarOs3Lances(Leilao $leilao)
      {
-        $this->avaliador->avalia($leilao);
+         $this->avaliador->avalia($leilao);
  
          $lances = $this->avaliador->getTresMaioresLances();
  
@@ -71,7 +71,7 @@ class AvaliadorTest extends TestCase
          static::assertCount(2, $this->avaliador->getTresMaioresLances());
      }
  
-     public static function leilaoComLancesEmOrdemCrescente()
+     public function leilaoComLancesEmOrdemCrescente()
      {
          $leilao = new Leilao('Fiat 147 0KM');
          $joao = new Usuario('João');
@@ -87,7 +87,7 @@ class AvaliadorTest extends TestCase
          ];
      }
  
-     public static function leilaoComLancesEmOrdemDecrescente()
+     public function leilaoComLancesEmOrdemDecrescente()
      {
          $leilao = new Leilao('Fiat 147 0KM');
          $joao = new Usuario('João');
@@ -103,7 +103,7 @@ class AvaliadorTest extends TestCase
          ];
      }
  
-     public static function leilaoComLancesEmOrdemAleatoria()
+     public function leilaoComLancesEmOrdemAleatoria()
      {
          $leilao = new Leilao('Fiat 147 0KM');
          $joao = new Usuario('João');

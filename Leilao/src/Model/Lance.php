@@ -4,7 +4,7 @@ namespace Leilao\Model;
 
 class Lance
 {
-    /** @var Usuario */
+    //** @var Usuario */
     private $usuario;
     /** @var float */
     private $valor;
