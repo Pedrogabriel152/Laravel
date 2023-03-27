@@ -7,6 +7,7 @@ use Leilao\Infra\ConnectionCreator;
 use Leilao\Model\Leilao;
 use PHPUnit\Framework\TestCase;
 
+use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertSame;
 
 class LeilaoDaoTest extends TestCase
@@ -60,6 +61,20 @@ class LeilaoDaoTest extends TestCase
         self::assertSame('Fiat 147 0Km', $leiloes[0]->recuperarDescricao());
         self::assertTrue($leiloes[0]->estaFinalizado());
 
+    }
+
+    public function testAoAtualizarStatusDeveSerAlterado() {
+        $leilao = new Leilao('Fiat 147 0Km');
+        $leilaoDao = new DaoLeilao(self::$pdo);
+        $leilao = $leilaoDao->salva($leilao);
+        $leilao->finaliza();
+
+        $leilaoDao->atualiza($leilao);
+
+        $leiloes = $leilaoDao->recuperarFinalizados();
+        self::assertCount(1, $leiloes);
+        self::assertSame('Fiat 147 0Km', $leiloes[0]->recuperarDescricao());
+        self::assertTrue($leiloes[0]->estaFinalizado());
     }
 
     protected function tearDown(): void
