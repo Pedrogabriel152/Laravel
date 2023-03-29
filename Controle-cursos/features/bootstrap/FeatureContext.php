@@ -1,15 +1,22 @@
 <?php
 
+use Armazenamento\Entity\Formacao;
+use Armazenamento\Infra\EntitymanagerCreator;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context
 {
+
+    private EntityManagerInterface $em;
+    private string $mensagemDeErro = '';
+    private int $idFormacao;
     /**
      * Initializes context.
      *
@@ -24,17 +31,26 @@ class FeatureContext implements Context
     /**
      * @When eu tentar criar uma formação com a descrição :arg1
      */
-    public function euTentarCriarUmaFormacaoComADescricao($arg1)
+    public function euTentarCriarUmaFormacaoComADescricao(string $descricaoDaFormacao)
     {
-        throw new PendingException();
+        $formacao = new Formacao();
+
+        try {
+
+            $formacao->setDescricao($descricaoDaFormacao);
+            
+        } catch (\InvalidArgumentException $e) {
+            $this->mensagemDeErro = $e->getMessage();
+        }
+        
     }
 
     /**
      * @Then eu vou ver a sequinte menssagem de erro :arg1
      */
-    public function euVouVerASequinteMenssagemDeErro($arg1)
+    public function euVouVerASequinteMenssagemDeErro(string $mensagemDeErro)
     {
-        throw new PendingException();
+        assert($mensagemDeErro === $this->mensagemDeErro);
     }
 
     /**
@@ -42,23 +58,20 @@ class FeatureContext implements Context
      */
     public function queEstouConectadoAoBancoDeDados()
     {
-        throw new PendingException();
+        $this->em = (new EntitymanagerCreator())->getEntityManager();
     }
 
     /**
-     * @Given este banco de dado é um mysql
+     * @When tento salvar uma nova formação com descrição :arg1
      */
-    public function esteBancoDeDadoEUmMysql()
+    public function tentoSalvarUmaNovaFormacaoComDescricao(string $descricaoDaFormacao)
     {
-        throw new PendingException();
-    }
+        $formacao = new Formacao();
+        $formacao->setDescricao($descricaoDaFormacao);
 
-    /**
-     * @When tento criar uma nova formação com descrição :arg1
-     */
-    public function tentoCriarUmaNovaFormacaoComDescricao($arg1)
-    {
-        throw new PendingException();
+        $this->em->persist($formacao);
+        $this->em->flush();
+        $this->idFormacao = $formacao->getId();
     }
 
     /**
@@ -66,6 +79,11 @@ class FeatureContext implements Context
      */
     public function seEuBuscarNoBancoDevoEncontrarEssaFormacao()
     {
-        throw new PendingException();
+        /** @var \Doctrine\Persistence\ObjectRepository $repositorio */
+        $repositorio = $this->em->getRepository(Formacao::class);
+        /** @var Formacao $formacao */
+        $formacao = $repositorio->find($this->idFormacao);
+
+        assert($formacao instanceof Formacao);
     }
 }

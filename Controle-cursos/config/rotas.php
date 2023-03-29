@@ -9,4 +9,7 @@ return [
     '/listar-cursos' => \Armazenamento\Controller\ListaDeCursos::class,
     '/editar-curso' => \Armazenamento\Controller\FormularioEdicaoCurso::class,
     '/excluir-curso' => \Armazenamento\Controller\ExclusaoDeCurso::class,
+    '/nova-formacao' => \Armazenamento\Controller\FormularioInsercaoFormacao::class,
+    '/salvar-formacao' => \Armazenamento\Controller\PersistenciaFormacao::class,
+    '/listar-formacoes' => \Armazenamento\Controller\ListaDeFormacoes::class,
 ];
