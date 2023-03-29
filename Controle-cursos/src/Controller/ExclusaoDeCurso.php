@@ -2,11 +2,11 @@
 
 namespace Armazenamento\Controller;
 
+use Nyholm\Psr7\Response;
 use Armazenamento\Entity\Curso;
 use Armazenamento\Helper\MensagemFlash;
-use Doctrine\ORM\EntityManagerInterface;
-use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
