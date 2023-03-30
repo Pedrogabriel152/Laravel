@@ -1,9 +1,9 @@
 <?php
 
-namespace Armazenamento\Controller;
+namespace Alura\Armazenamento\Controller;
 
-use Armazenamento\Helper\HtmlViewTrait;
-use Armazenamento\Entity\Curso;
+use Alura\Armazenamento\Helper\HtmlViewTrait;
+use Alura\Armazenamento\Entity\Curso;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

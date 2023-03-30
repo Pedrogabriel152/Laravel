@@ -1,8 +1,8 @@
 <?php
 
-namespace Armazenamento\Controller;
+namespace Alura\Armazenamento\Controller;
 
-use Armazenamento\Helper\HtmlViewTrait;
+use Alura\Armazenamento\Helper\HtmlViewTrait;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -11,6 +11,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class FormularioLogin implements RequestHandlerInterface
 {
     use HtmlViewTrait;
+
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {

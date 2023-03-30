@@ -1,9 +1,9 @@
 <?php
 
-namespace Armazenamento\Controller;
+namespace Alura\Armazenamento\Controller;
 
-use Armazenamento\Entity\Formacao;
-use Armazenamento\Helper\HtmlViewTrait;
+use Alura\Armazenamento\Entity\Formacao;
+use Alura\Armazenamento\Helper\HtmlViewTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

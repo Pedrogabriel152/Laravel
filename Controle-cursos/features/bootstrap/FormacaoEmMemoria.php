@@ -1,53 +1,40 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
+use Alura\Armazenamento\Entity\Formacao;
 use Behat\Behat\Context\Context;
-use Armazenamento\Entity\Formacao;
 
 class FormacaoEmMemoria implements Context
 {
-    private string $mensagemDeErro = '';
+    private string $mensagemDeErro;
     private Formacao $formacao;
-    /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
-     */
 
     /**
      * @When eu tentar criar uma formação com a descrição :arg1
      */
-    public function euTentarCriarUmaFormacaoComADescricao(string $descricaoDaFormacao)
+    public function euTentarCriarUmaFormacaoComADescricao(string $descricaoFormacao)
     {
         $this->formacao = new Formacao();
 
         try {
-
-            $this->formacao->setDescricao($descricaoDaFormacao);
-            
-        } catch (\InvalidArgumentException $e) {
-            $this->mensagemDeErro = $e->getMessage();
+            $this->formacao->setDescricao($descricaoFormacao);
+        } catch (\InvalidArgumentException $exception) {
+            $this->mensagemDeErro = $exception->getMessage();
         }
-        
     }
 
     /**
-     * @Then eu vou ver a sequinte menssagem de erro :arg1
+     * @Then eu vou ver a seguinte mensagem de erro :arg1
      */
-    public function euVouVerASequinteMenssagemDeErro(string $mensagemDeErro)
+    public function euVouVerASeguinteMensagemDeErro(string $mensagemDeErro)
     {
         assert($mensagemDeErro === $this->mensagemDeErro);
     }
 
-    
-
     /**
      * @Then eu devo ter uma formação criada com a descrição :arg1
      */
-    public function euDevoTerUmaFormacaoCriadaComADescricao(string $descricaoDaFormacao)
+    public function euDevoTerUmaFormacaoCriadaComADescricao(string $descricaoFormacao)
     {
-        assert($this->formacao->getDescricao() === $descricaoDaFormacao);
+        assert($this->formacao->getDescricao() === $descricaoFormacao);
     }
 }

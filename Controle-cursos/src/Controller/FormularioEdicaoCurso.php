@@ -1,9 +1,9 @@
 <?php
 
-namespace Armazenamento\Controller;
+namespace Alura\Armazenamento\Controller;
 
-use Armazenamento\Helper\HtmlViewTrait;
-use Armazenamento\Entity\Curso;
+use Alura\Armazenamento\Helper\HtmlViewTrait;
+use Alura\Armazenamento\Entity\Curso;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -14,8 +14,15 @@ class FormularioEdicaoCurso implements RequestHandlerInterface
 {
     use HtmlViewTrait;
 
-    public function __construct(private EntityManagerInterface $entityManager)
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

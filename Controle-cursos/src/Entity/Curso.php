@@ -1,24 +1,24 @@
 <?php
 
-namespace Armazenamento\Entity;
+namespace Alura\Armazenamento\Entity;
 
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\Table;
-
-#[Entity]
-#[Table(name: "cursos")]
+/**
+ * @Entity
+ * @Table(name="cursos")
+ */
 class Curso
 {
-    #[Id]
-    #[GeneratedValue]
-    #[Column]
-    private ?int $id = null;
+    /**
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    private $id;
 
-    #[Column]
-    private string $descricao = '';
+    /**
+     * @Column(type="string")
+     */
+    private $descricao;
 
     public function getId(): ?int
     {

@@ -1,29 +1,21 @@
 <?php
 
-namespace Armazenamento\Infra;
+namespace Alura\Armazenamento\Infra;
 
-use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Setup;
 
 class EntitymanagerCreator
 {
-    private $data;
-    
     public function getEntityManager(): EntityManagerInterface
     {
-        $this->data = Variaveis::variaveis();
-        
-        $config = ORMSetup::createAttributeMetadataConfiguration([__DIR__ . '/../Entity'], true);
-        $conexao = DriverManager::getConnection([
-            'driver' => 'pdo_mysql',
-            'host' => $this->data['host'],
-            'password' => $this->data['password'],
-            'user' => 'root',
-            'dbname' => $this->data['dbname']
-        ]);
+        $config = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/../Entity'], true);
+        $dadosConexao = [
+            'driver' => 'pdo_sqlite',
+            'path' => __DIR__ . '/../../db.sqlite',
+        ];
 
-        return new EntityManager($conexao, $config);
+        return EntityManager::create($dadosConexao, $config);
     }
 }

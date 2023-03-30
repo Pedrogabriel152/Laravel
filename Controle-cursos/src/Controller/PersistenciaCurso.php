@@ -1,9 +1,9 @@
 <?php
 
-namespace Armazenamento\Controller;
+namespace Alura\Armazenamento\Controller;
 
-use Armazenamento\Entity\Curso;
-use Armazenamento\Helper\MensagemFlash;
+use Alura\Armazenamento\Entity\Curso;
+use Alura\Armazenamento\Helper\MensagemFlash;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -14,8 +14,14 @@ class PersistenciaCurso implements RequestHandlerInterface
 {
     use MensagemFlash;
 
-    public function __construct(private EntityManagerInterface $entityManager)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

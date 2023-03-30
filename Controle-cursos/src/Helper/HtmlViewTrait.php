@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Armazenamento\Helper;
+namespace Alura\Armazenamento\Helper;
 
 trait HtmlViewTrait
 {

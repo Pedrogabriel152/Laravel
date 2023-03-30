@@ -1,6 +1,6 @@
 <?php
 
-namespace Armazenamento\Helper;
+namespace Alura\Armazenamento\Helper;
 
 trait MensagemFlash
 {

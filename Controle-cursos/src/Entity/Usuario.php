@@ -1,29 +1,27 @@
 <?php
 
-namespace Armazenamento\Entity;
-
-use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\Table;
+namespace Alura\Armazenamento\Entity;
 
 /**
  * @Entity
  * @Table(name="usuarios")
  */
-#[Entity]
-#[Table(name: "usuarios")]
 class Usuario
 {
-    #[Id]
-    #[GeneratedValue]
-    #[Column]
-    private int $id;
-    #[Column]
-    private string $email;
-    #[Column]
-    private string $senha;
+    /**
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
+     */
+    private $id;
+    /**
+     * @Column(type="string")
+     */
+    private $email;
+    /**
+     * @Column(type="string")
+     */
+    private $senha;
 
     public function getId(): ?int
     {

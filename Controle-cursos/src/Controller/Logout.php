@@ -1,6 +1,6 @@
 <?php
 
-namespace Armazenamento\Controller;
+namespace Alura\Armazenamento\Controller;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

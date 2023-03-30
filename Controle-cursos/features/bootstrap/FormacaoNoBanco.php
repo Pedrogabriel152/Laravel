@@ -1,11 +1,9 @@
 <?php
 
-use Armazenamento\Entity\Formacao;
-use Armazenamento\Infra\EntitymanagerCreator;
+use Alura\Armazenamento\Entity\Formacao;
+use Alura\Armazenamento\Infra\EntitymanagerCreator;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -13,16 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class FormacaoNoBanco implements Context
 {
-
     private EntityManagerInterface $em;
-    private int $idFormacao;
-    /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
-     */
+    private int $idFormacaoInserida;
 
     /**
      * @Given que estou conectado ao banco de dados
@@ -33,27 +23,28 @@ class FormacaoNoBanco implements Context
     }
 
     /**
-     * @When tento salvar uma nova formação com descrição :arg1
+     * @When tento salvar uma nova formação com a descrição :arg1
      */
-    public function tentoSalvarUmaNovaFormacaoComDescricao(string $descricaoDaFormacao)
+    public function tentoSalvarUmaNovaFormacaoComADescricao(string $descricaoFormacao)
     {
         $formacao = new Formacao();
-        $formacao->setDescricao($descricaoDaFormacao);
+        $formacao->setDescricao($descricaoFormacao);
 
         $this->em->persist($formacao);
         $this->em->flush();
-        $this->idFormacao = $formacao->getId();
+
+        $this->idFormacaoInserida = $formacao->getId();
     }
 
     /**
-     * @Then se eu buscar no banco, devo encontrar essa formação
+     * @Then se eu buscar no banco, devo encontar essa formação
      */
-    public function seEuBuscarNoBancoDevoEncontrarEssaFormacao()
+    public function seEuBuscarNoBancoDevoEncontarEssaFormacao()
     {
         /** @var \Doctrine\Persistence\ObjectRepository $repositorio */
         $repositorio = $this->em->getRepository(Formacao::class);
         /** @var Formacao $formacao */
-        $formacao = $repositorio->find($this->idFormacao);
+        $formacao = $repositorio->find($this->idFormacaoInserida);
 
         assert($formacao instanceof Formacao);
     }

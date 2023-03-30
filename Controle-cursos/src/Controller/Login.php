@@ -1,11 +1,10 @@
 <?php
 
-namespace Armazenamento\Controller;
+namespace Alura\Armazenamento\Controller;
 
-use Armazenamento\Entity\Usuario;
-use Armazenamento\Helper\MensagemFlash;
+use Alura\Armazenamento\Entity\Usuario;
+use Alura\Armazenamento\Helper\MensagemFlash;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -15,8 +14,7 @@ class Login implements RequestHandlerInterface
 {
     use MensagemFlash;
 
-    /** @var EntityRepository<Usuario> */
-    private EntityRepository $repositorioUsuarios;
+    private $repositorioUsuarios;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
